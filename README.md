@@ -1,15 +1,15 @@
-### dump-firmware
+# dump-firmware
 Bypass security features to dump firmware of remote control copier
 
-# Taregt 
+### Taregt 
 nRF51822-QFAC is an ultra-low power 2.4 GHz .It is built
 around the 32-bit ARM® CortexTM-M0 CPU with 256 KB flash and 32 KB
 RAM
 
-# For Debugging 
+### For Debugging 
 For debugging I used the STLINK-V2 as adapter debugger and openOCD as software debugger
 
-# Description about script functionalities
+### Description about script functionalities
 
 1. debug_firm.py
 This script used to find a load instruction used by CPU
