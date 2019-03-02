@@ -34,18 +34,17 @@ while address < 4096:
     print "reset",reset    
     time.sleep(2)
 
-    f = open("firm.bin","a+")
-    #print "reset halt"
+    f = open("firmware.bin","a+")
     print "====the file opened====" 
 
     time.sleep(0.1)
 
 
 
-    for address in xrange(offset,int("0x1000",16),4):
+    for address in xrange(offset,int("0x40000",16),4):
 
         print "[+] reset halt"
-        s.write("reset halt\n") # first command to openocd
+        s.write("reset halt\n") 
         see = s.read_until(">")
 
         print "see",see 
@@ -90,4 +89,3 @@ while address < 4096:
         print "max reached"
         f.close()
         break
-#last address 4092 0xffc
