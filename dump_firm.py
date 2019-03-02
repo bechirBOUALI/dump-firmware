@@ -10,53 +10,40 @@ s = telnetlib.Telnet(HOST , PORT)
 s.set_debuglevel(0)
 s.read_until(">")
 
-#s.write("reset halt\n") # first command to openocd
-#s.read_until(">")
-
-f = open("firmware_chunk_3.bin","a+")
+f = open("firmware.bin","w")
 init_value = 0
     
-s.write("reset halt\n") # first command to openocd
+s.write("reset halt\n") 
 s.read_until(">")
 offset = int(sys.argv[1])
 address = 0
 test = 0
 
-while address < 16384:
+while address < 262144:
     
-    print "\n"
-    print " ===Begining=== \n"
 
     time.sleep(1)
 
-    s.write("reset halt\n") # first command to openocd
-    #time.sleep(0.5)
-    p = s.read_until(">")
-    print "first reset",p
-    
+    s.write("reset halt\n") 
+    s.read_until(">")    
     time.sleep(1)
 
-    for address in xrange(offset,int("0x4000",16),4):
+    for address in xrange(offset,int("0x40000",16),4):
 
         print "[+]" + hex(address)
-        s.write("reset halt\n") # first command to openocd
-        p2=s.read_until(">")
-        print "p2",p2
+        s.write("reset halt\n") 
+        s.read_until(">")
         
         time.sleep(1)
         
         s.write("reg pc 0x6DC\n")
         time.sleep(0.5)
-        show1 = s.read_until(">")
-        print "show1 ",show1        
-        show1_value = re.findall(r': 0x[0-9afA-F]+', show1)
-        print show1_value
+        show1_value = re.findall(r': 0x[0-9afA-F]+',s.read_until(">"))
         if show1_value != [': 0x000006DC']:
             offset = address
             test = 1
             print "test 1"
-            s.write("reset halt\n") # first command to openocd
-            #time.sleep(0.5)
+            s.write("reset halt\n") 
             s.read_until(">")
             break
 
@@ -77,8 +64,8 @@ while address < 16384:
             offset = address
             test = 1
             print "test 1"
-            s.write("reset halt\n") # first command to openocd
-            #time.sleep(0.5)
+            s.write("reset halt\n") 
+           
             s.read_until(">")
             break
         
@@ -93,17 +80,14 @@ while address < 16384:
         s.write("reg pc\n")
         show = s.read_until(">")
         print "show ",show 
-        #time.sleep(0.5)
         pc_value = re.findall(r'0x[0-9afA-F]+', show)
-        #print "pc-->" + pc_value[0]
         print "[+] pc = ",pc_value 
 
         if pc_value != ['0x000006DE']:
             offset = address
             test = 1
             print "test 1"
-            s.write("reset halt\n") # first command to openocd
-            #time.sleep(0.5)
+            s.write("reset halt\n") 
             s.read_until(">")
             break
 
