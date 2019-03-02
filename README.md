@@ -17,5 +17,5 @@ This script used to find a load instruction used by CPU
 2. dump_firm.py
 This script used to load data(firmware) from main memory to a file
 
-3.new_process_dump_firm.py
+3. new_process_dump_firm.py
 This script used to automate the hole process of dumping when the device crash using a ykush card. 
